@@ -1,0 +1,46 @@
+# v2 syntax
+version: '2'
+
+volumes:
+  fs-postgres-data:
+    driver: local
+
+  # Redis Data
+  fs-redis-data:
+    driver: local
+
+services:
+  # Postgres (10.3)
+  postgres:
+    image: postgres:10.3
+    container_name: fs-postgres
+    volumes:
+      - fs-postgres-data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_PASSWORD=fs
+      - POSTGRES_DB=fs
+      - POSTGRES_USER=fs
+
+  # Redis
+  cache:
+    image: redis:4.0
+    container_name: fs-redis
+    command: --appendonly yes
+    volumes:
+      - fs-redis-data:/data
+    ports:
+      - "6379:6379"
+
+  # PHP (with Nginx)
+  app:
+    image: ambientum/php:7.2-nginx
+    container_name: fs-app
+    volumes:
+      - .:/var/www/app
+    ports:
+      - "80:8080"
+    links:
+      - postgres
+      - cache
