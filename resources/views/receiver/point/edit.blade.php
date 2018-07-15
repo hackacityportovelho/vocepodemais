@@ -25,7 +25,7 @@
               <div class="input-group">
                 <div class="input-group-prepend">
                     <div class="input-group-text">
-                    <input name="areas[{{$area->id}}]" type="checkbox" aria-label="Checkbox for following text input" value='{{ $area->id }}'>
+                    <input name="areas[{{$area->id}}]" type="checkbox" @if($model->Areas()->find($area->id)) checked @endif() value='{{ $area->id }}'>
                     </div>
                 </div>
                 <input readonly type="text" value="{{ $area->name }}" class="form-control">
