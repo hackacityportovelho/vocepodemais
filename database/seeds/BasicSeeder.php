@@ -11,11 +11,18 @@ class BasicSeeder extends Seeder
 {
     public function run()
     {
-      Donator::create([
+      $d1 = Donator::create([
         'uid' => 'sylviot',
         'name' => 'Sylvio Tavares',
         'email' => 'sylvio.tavares@hotmail.com',
         'password' => bcrypt('123'),
+      ]);
+      User::create([
+        'name' => 'SylvioT',
+        'email' => 'sylviot@email.com',
+        'reference_type' => 'donator',
+        'reference_id' => $d1->id,
+        'password' => bcrypt('321321'),
       ]);
 
       $r1 = Receiver::create([

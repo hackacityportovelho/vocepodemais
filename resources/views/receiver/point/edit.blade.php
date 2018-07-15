@@ -25,7 +25,7 @@
               <div class="input-group">
                 <div class="input-group-prepend">
                     <div class="input-group-text">
-                    <input type="checkbox" aria-label="Checkbox for following text input">
+                    <input name="areas[{{$area->id}}]" type="checkbox" aria-label="Checkbox for following text input" value='{{ $area->id }}'>
                     </div>
                 </div>
                 <input readonly type="text" value="{{ $area->name }}" class="form-control">

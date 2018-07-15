@@ -65,10 +65,21 @@ $(document).ready(function(){
     google.maps.event.addListener(marker,'dragend',function(event) {
       $('[name=latitude]').val(event.latLng.lat())
       $('[name=longitude]').val(event.latLng.lng())
-      //document.getElementById('lat').value =event.latLng.lat();
-      //document.getElementById('lng').value =event.latLng.lng();
       var infowindow = new google.maps.InfoWindow({
-            content: content// 'Latitude: ' + event.latLng.lat() + '<br>Longitude:' + event.latLng.lng()
+            content: 
+            '<div id="new_point">'+
+              '<h4>Novo ponto de coleta</h4>'+
+              '<form action="{{ route("receiver.point.store") }}" method="POST">'+
+                '{{ csrf_field() }}'+
+                '<input type="hidden" name="latitude">'+
+                '<input type="hidden" name="longitude">'+
+                '<div class="form-group">'+
+                  '<label>Descrição</label>'+
+                  '<textarea id="description" name="description" class="form-control" rows="3" required></textarea>'+
+                '</div>'+
+                '<button class="btn btn-primary">Criar</button>'+
+              '</form>'+
+            '</div>'
       });
       infowindow.open(map,marker);
     });

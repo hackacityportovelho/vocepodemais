@@ -89,7 +89,8 @@ class ReceiverController extends Controller
   public function pointUpdate($id, Request $request)
   {
     $model = Point::find($id);
-    $model->update($request->all());
+    $model->update($request->get('areas'));
+    $model->Areas()->sync($request->get('areas', []));
 
     return redirect()->route('receiver.point.edit', $id);
   }

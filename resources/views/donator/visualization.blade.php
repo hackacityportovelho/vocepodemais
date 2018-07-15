@@ -34,8 +34,7 @@ $(document).ready(function(){
     var markers = [];
     var myLocation;
     var infowindow = new google.maps.InfoWindow({ maxWidth: 200 });
-    var latitude = -8.766195769903216, longitude = -63.872108459472656, zoom = 13;
-    var position = {coords:{latitude: -8.7447608, longitude: -63.8713366}}; //temp
+    var latitude = -8.766195769903216, longitude = -63.872108459472656, zoom = 13; // Porto velho
 
     var new_marker = function(latLng) {
       marker = new google.maps.Marker({
@@ -47,19 +46,20 @@ $(document).ready(function(){
       return marker;
     };
 
+     map = new google.maps.Map(document.getElementById('map'), {
+      center: {lat: latitude, lng: longitude},
+      zoom: zoom
+    })
+
     if(navigator.geolocation) {
-      //navigator.geolocation.getCurrentPosition(function(position) {
+      navigator.geolocation.getCurrentPosition(function(position) {
         console.log('GET')
         myLocation = {
           lat: position.coords.latitude,
           lng: position.coords.longitude
         };
 
-         console.log(position)
-         map = new google.maps.Map(document.getElementById('map'), {
-          center: {lat: position.coords.latitude, lng: position.coords.longitude},
-          zoom: zoom
-        })
+        map.setCenter(new google.maps.LatLng(position.coords.latitude, position.coords.longitude));
 
         marker = new google.maps.Marker({
           map: map,
@@ -105,9 +105,9 @@ $(document).ready(function(){
           })
         });
 
-        //}, function() {
-       //handleLocationError(true, infoWindow, map.getCenter());
-     // });
+      }, function() {
+        handleLocationError(true, infoWindow, map.getCenter());
+     });
     }
 
 });
