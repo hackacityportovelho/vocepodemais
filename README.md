@@ -2,10 +2,11 @@
 
 ## Instalação
 
+```
 docker-compose up -d
-
 docker exec -it fs-app bash
 php artisan migrate:fresh --seeder=BasicSeeder
+```
 
 ### Conta
 
